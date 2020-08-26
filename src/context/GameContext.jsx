@@ -1,5 +1,5 @@
 import Reacct, { useState } from 'react'
-import mezclar from 'lodash.shuffle'
+import shuffle from 'lodash.shuffle'
 
 let GameContext = Reacct.createContext()
 
@@ -20,7 +20,7 @@ function GameProvider({ children }) {
             modalidad: modo,
             pozo: [],
             tren: [],
-            turno: 1           
+            turno: 1
         }
         
         setJugadores(creaJugadores(participantes))
@@ -53,7 +53,7 @@ function GameProvider({ children }) {
             }
         }
 
-        return mezclar(elFichero)
+        return shuffle(elFichero)
     }
 
     function creaJugadores(participantes) {
