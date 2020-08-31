@@ -1,8 +1,6 @@
 import React from 'react'
 import './Styles.css'
-import { SeleccionarModo } from '../select-mode'
-import { SeleccionarCantidadDeFichas } from '../select-amount-of-chips'
-import { FormularioJugadores } from '../select-form-players'
+import { StartConteiner } from './StartConteiner'
 
 export function StartPages() {
     return (
@@ -12,11 +10,7 @@ export function StartPages() {
                 <h1>D O M I N Ó</h1>
             </header>
             <br/><br/>
-            <SeleccionarModo />
-            <br/>
-            <SeleccionarCantidadDeFichas />
-            <br/>
-            <FormularioJugadores />
+            <StartConteiner />
         </div>
     )
 }

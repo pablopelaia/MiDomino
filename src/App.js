@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import { StartPages } from './components/pages/start';
+import { GameProvider } from './context/GameContext';
 
 function App() {
   return (
-    <div className="App">
+   <GameProvider>
       <StartPages />
-    </div>
+   </GameProvider>
   );
 }
 

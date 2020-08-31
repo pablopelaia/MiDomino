@@ -24,3 +24,5 @@ yarn-error.log*
 
 # Mis archivos
 /src/repaso
+
+/src/images

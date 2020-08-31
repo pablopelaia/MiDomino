@@ -1,16 +1,34 @@
-import Reacct, { useState } from 'react'
+import React, { useState } from 'react'
 import shuffle from 'lodash.shuffle'
 
-let GameContext = Reacct.createContext()
+let GameContext = React.createContext()
+let { Provider, Consumer } = GameContext
 
 function GameProvider({ children }) {
     
+    let [cargar, setCargar] = useState("Start")
+    let [modo, setModo] = useState()
+    let [tipoPieza, setTipoPieza] = useState(6)
     let [juego, setJuego] = useState({})
     let [jugadores, setJugadores] = useState({})
 
-    function armaJuego(modo, piezas, participantes){
+    function seleccionaModo(click) {
+        setModo(click)
+        setCargar("Chips")
+    }
 
-        const miFichero = creaFichero(piezas + 1)
+    function seleccionaPiezas(click) {
+        setTipoPieza(click)
+        setCargar("Players")
+    }
+
+    function backToStart() {
+        setCargar("Start")
+    }
+    
+    function armaJuego(participantes){
+
+        const miFichero = creaFichero(tipoPieza)
 
         juego = {
             analizando: false,
@@ -110,4 +128,21 @@ function GameProvider({ children }) {
         setJuego(actualJuego)
         setJugadores(actualJugadores)
     }
+
+    return (
+        <Provider value={{
+            cargar,
+            modo,
+            juego,
+            jugadores,
+            seleccionaModo,
+            armaJuego,
+            seleccionaPiezas,
+            backToStart
+            }}>
+            {children}
+        </Provider>
+    )
 }
+
+export { GameProvider, Consumer as GameConsumer, GameContext }
