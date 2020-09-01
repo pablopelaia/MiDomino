@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { SeleccionarModo } from '../select-mode'
-import { SeleccionarCantidadDeFichas } from '../select-amount-of-chips'
-import { FormularioJugadores } from '../select-form-players'
-import { GameContext } from '../../../context/GameContext'
+import { SeleccionarCantidadDeFichas } from '../select-chips'
+import { FormularioJugadores } from '../select-players'
+import { GameContext } from '../../context/GameContext'
 
 export const StartConteiner = () => {
 
