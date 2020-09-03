@@ -3,16 +3,21 @@ import { GameContext } from '../../context/GameContext'
 
 export const LosJugadores = () => {
 
-    const { COLORES } = useContext(GameContext)
-
-    let colores = COLORES
-    let elColor = colores[0]
+    const { jugadores } = useContext(GameContext)
+    console.log(jugadores)
 
     return (
-        <div>
-            {colores.map(c => {
-                return <a className="btn btn-lg" style={{background: c, fontSize: "12px", font: "bold"}}>Pablo</a>
+        <frameElement>
+            <h4>Lista de jugadores</h4>
+            {jugadores.map(j => {
+                return <a
+                    key={j.nombre}
+                    className="btn btn-lg"
+                    style={{background: j.fondo, color: j.letras, fontSize: "12px"}}
+                >
+                    <strong>{j.nombre}</strong>
+                </a>
             })}
-        </div>
+        </frameElement>
     )
 }

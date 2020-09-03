@@ -6,11 +6,17 @@ let { Provider, Consumer } = GameContext
 
 function GameProvider({ children }) {
     
+    const MIS_COLORES = [ {fondo: "#ff0000", fuente: "white"}, {fondo: "#0000ff", fuente: "white"},
+        {fondo: "#008000", fuente: "white"}, {fondo: "#64b4d2", fuente: "Black"}, {fondo: "#ffff00", fuente: "Black"},
+        {fondo: "#ff4500", fuente: "white"}, {fondo: "#646464", fuente: "white"}, {fondo: "#800080", fuente: "white"}
+    ]
+    
     let [cargar, setCargar] = useState("Players")
     let [modo, setModo] = useState({})
     let [juego, setJuego] = useState({})
-    let [jugadores, setJugadores] = useState({})
-    const COLORES = ["#ff0000", "#0000ff", "#008000", "#64b4d2", "#ffff00", "#ff4500", "#646464", "#800080"]
+    let [jugadores, setJugadores] = useState()
+    let [colores, setColores] = useState(MIS_COLORES)
+    let [participante, setParticipante] = useState({nombre:"", fondo: "", letras: ""})
 
     function seleccionaModo(click) {
         let elModo = {
@@ -34,19 +40,42 @@ function GameProvider({ children }) {
         setCargar("Start")
     }
     
-    function creaJugador(id, nombre, color) {
+    function selecionaColor(fondo, fuente){
+        
+        const player = {
+            ...participante,
+            fondo: fondo,
+            letras: fuente
+        }
+
+        setParticipante(player)
+    }
+
+    function selecionaNombre(nombre){
+        const player = {
+            ...participante,
+            nombre
+        }
+
+        setParticipante(player)
+    }
+
+    function creaJugador(id) {
         
         let comienza = false
+
+        actualizaColores()
 
         if(id === 0){
                 comienza = true
         }
 
         const jugador = {
-                id,
-                color,
+                id: id,
+                fondo: participante.fondo,
+                letras: participante.letras,
                 iniciaTurno: comienza,
-                nombre,
+                nombre: participante.nombre,
                 puntaje: 0,
                 susFichas: [],
                 suTren: []
@@ -55,6 +84,18 @@ function GameProvider({ children }) {
         const agregaJugador = [...jugadores, jugador]
 
         setJugadores(agregaJugador)
+    }
+
+    function vuelvePagina(){
+        setParticipante()
+        setColores(MIS_COLORES)
+        setJugadores()
+        setCargar("Chips")
+    }
+
+    function actualizaColores() {
+        const alcualesColores = colores.filter(c => c.fondo != participante.fondo)
+        setColores(alcualesColores)
     }
 
     function armaJuego(){
@@ -143,13 +184,18 @@ function GameProvider({ children }) {
     return (
         <Provider value={{
             cargar,
-            COLORES,
+            colores,
             juego,
             jugadores,
             modo,
+            participante,
             backToStart,
+            creaJugador,
+            selecionaColor,
             seleccionaModo,
-            seleccionaPiezas,            
+            selecionaNombre,
+            seleccionaPiezas,
+            vuelvePagina
             }}>
             {children}
         </Provider>
